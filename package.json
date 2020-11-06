@@ -4,9 +4,9 @@
   "description": "{{description}}",
   "author": "{{author}}",
   "scripts": {
-    "dev": "vite -NODE_ENV=development",
-    "build-dev": "vite build -NODE_ENV=development",
-    "build-prd": "vite build -NODE_ENV=production"
+    "dev": "vite -m development",
+    "build-dev": "vite build -m development",
+    "build-prd": "vite build -m production"
   },
   "dependencies": {
     "ant-design-vue": "^2.0.0-beta.13",

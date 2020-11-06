@@ -15,6 +15,8 @@ export default defineComponent({
   name: 'Home',
   setup() {
     const msg = 'Welcome! vue3 + vite + ts';
+    console.log('1111111', process.env);
+
     loginApi();
     return { msg };
   },
