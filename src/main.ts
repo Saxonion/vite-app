@@ -5,6 +5,7 @@ import { store } from './store'
 import Antd from 'ant-design-vue'
 
 import "ant-design-vue/dist/antd.css";
-import "./index.css";
+import './assets/styles/vendors-extensions/antdCustom.less'
+import "./index.less";
 
 createApp(App).use(router).use(store).use(Antd).mount('#app')

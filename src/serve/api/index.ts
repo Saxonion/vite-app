@@ -1,3 +1,3 @@
-import http from "../api.ts";
+import http from "../api";
 
-export const loginApi = (data) => http.post("/login", data);
+export const loginApi = (data: Object) => http.post("/login", data);

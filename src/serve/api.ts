@@ -1,11 +1,9 @@
 import axios from "axios";
 
-// import Config from "./config";
-
 axios.defaults.headers["Content-Type"] = "application/json";
 
 let config = {
-  baseURL: '',
+  baseURL: import.meta.env.VITE_APP_URL,
   timeout: 60 * 1000,
 };
 
