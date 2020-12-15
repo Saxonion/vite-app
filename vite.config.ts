@@ -25,18 +25,12 @@ module.exports = {
   optimizeDeps: {
     include: ["lodash"],
   },
-  css: {
-    loaderOptions: {
-      less: {
-        lessOptions: {
-          modifyVars: {
-            "primary-color": "#d16b37",
-            "link-color": "#1DA57A",
-            "border-radius-base": "2px",
-          },
-          javascriptEnabled: true,
-        },
+  cssPreprocessOptions: {
+    less: {
+      modifyVars: {
+        "primary-color": "rgba(112, 128, 144, 1)",
       },
-    },
-  },
+      javascriptEnabled: true,
+    }
+  }
 };

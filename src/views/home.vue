@@ -12,10 +12,17 @@
 </template>
 
 <script lang="ts">
+import App from '../App.vue';
 import { defineComponent } from 'vue';
+import { Button, Avatar, Badge } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'Home',
+  components: {
+    [Button.name]: Button,
+    [Avatar.name]: Avatar,
+    [Badge.name]: Badge,
+  },
   setup() {
     const msg = 'Welcome! vue3 + vite + ts';
     return { msg };
