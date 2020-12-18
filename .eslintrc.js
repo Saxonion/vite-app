@@ -10,6 +10,7 @@ module.exports = {
     "vue/no-multiple-template-root": "off",
     "vue/html-closing-bracket-newline": "off",
     "vue/max-attributes-per-line": "off",
+    "object-curly-newline": "off",
   },
   overrides: [
     {

@@ -1,78 +1,70 @@
 <template>
-  <a-layout class="layout-container">
-    <a-layout-sider :collapsed="collapsed"
-                    :trigger="null"
-                    collapsible>
-      <div class="logo" />
-      <a-menu :selected-keys="selectedKeys"
-              theme="dark"
-              mode="inline">
-        <a-menu-item key="1">
-          <user-outlined />
-          <span>nav 1</span>
+  <a-menu mode="inline"
+          theme="dark"
+          :selected-keys="selectedKeys"
+          @click="handleMenu">
+    <template v-for="menu in routerList"
+              :key="menu.path">
+      <template v-if="!menu.children">
+        <a-menu-item :key="menu.path">
+          <UserOutlined />
+          <span>{{ menu.name }}</span>
         </a-menu-item>
-        <a-menu-item key="2">
-          <video-camera-outlined />
-          <span>nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <upload-outlined />
-          <span>nav 3</span>
-        </a-menu-item>
-      </a-menu>
-    </a-layout-sider>
-    <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <menu-unfold-outlined v-if="collapsed"
-                              class="trigger"
-                              @click="() => (collapsed = !collapsed)" />
-        <menu-fold-outlined v-else
-                            class="trigger"
-                            @click="() => (collapsed = !collapsed)" />
-      </a-layout-header>
-      <a-layout-content :style="{ margin: '24px 16px',
-                                  padding: '24px', background: '#fff', minHeight: '280px' }">
-        Content
-      </a-layout-content>
-    </a-layout>
-  </a-layout>
+      </template>
+      <template v-else>
+        <a-sub-menu :key="menu.path">
+          <template #title>
+            <span>
+              <MailOutlined /><span>{{ menu.name }}</span>
+            </span>
+          </template>
+          <a-menu-item v-for="subMenu in menu.children"
+                       :key="menu.path + '/' + subMenu.path">
+            <span>{{ subMenu.name }}</span>
+          </a-menu-item>
+        </a-sub-menu>
+      </template>
+    </template>
+  </a-menu>
 </template>
 
-<script>
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from '@ant-design/icons-vue';
+<script lang="ts">
+import { defineComponent, ref, watch } from 'vue';
+import { UserOutlined, MailOutlined } from '@ant-design/icons-vue';
+import { useRouter } from 'vue-router';
 
-import { Menu, Layout } from 'ant-design-vue';
+import { Menu } from 'ant-design-vue';
 
-export default {
+export default defineComponent({
   components: {
     UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-
-    [Layout.name]: Layout,
-    [Layout.Sider.name]: Layout.Sider,
-    [Layout.Header.name]: Layout.Header,
-    [Layout.Content.name]: Layout.Content,
+    MailOutlined,
 
     [Menu.name]: Menu,
     [Menu.Item.name]: Menu.Item,
     [Menu.SubMenu.name]: Menu.SubMenu,
   },
-  data() {
+
+  setup() {
+    const router = useRouter();
+    const routerList = router.options.routes;
+    const selectedKeys = ref([]);
+
+    const handleMenu = (e) => {
+      router.push(e.key);
+    };
+
+    watch(router.currentRoute, (val) => {
+      selectedKeys.value[0] = val.path;
+    });
+
     return {
-      selectedKeys: ['1'],
-      collapsed: false,
+      selectedKeys,
+      routerList,
+      handleMenu,
     };
   },
-};
+});
 </script>
 
 <style lang="less" scoped>
