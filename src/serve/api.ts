@@ -1,15 +1,16 @@
 import axios from "axios";
+import { globalData } from '/@/setting/global';
 
 axios.defaults.headers["Content-Type"] = "application/json";
 
 let config = {
-  baseURL: import.meta.env.VITE_APP_URL,
+  baseURL: globalData.apiUrl,
   timeout: 60 * 1000,
 };
 
-const _axios = axios.create(config);
+const http = axios.create(config);
 
-_axios.interceptors.request.use(
+http.interceptors.request.use(
   (config) => {
     const token = sessionStorage.getItem("TOKEN");
     if (token) {
@@ -24,7 +25,7 @@ _axios.interceptors.request.use(
 );
 
 // Add a response interceptor
-_axios.interceptors.response.use(
+http.interceptors.response.use(
   (response) => {
     // Do something with response data
     return response.data;
@@ -35,7 +36,4 @@ _axios.interceptors.response.use(
   }
 );
 
-export default {
-  get: (url, parmas) => _axios.get(url, parmas),
-  post: (url, parmas) => _axios.post(url, parmas),
-};
+export default http;

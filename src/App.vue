@@ -1,44 +1,46 @@
 <template>
-  <a-layout class="layout-container">
-    <a-layout-sider :collapsed="collapsed"
-                    :trigger="null"
-                    collapsible>
-      <div class="logo" />
-      <Aside />
-    </a-layout-sider>
-    <a-layout>
-      <a-layout-header class="header-container">
-        <menu-unfold-outlined v-if="collapsed"
+  <a-config-provider :locale="locale">
+    <a-layout class="layout-container">
+      <a-layout-sider :collapsed="collapsed"
+                      :trigger="null"
+                      collapsible>
+        <div class="logo" />
+        <Aside />
+      </a-layout-sider>
+      <a-layout>
+        <a-layout-header class="header-container">
+          <menu-unfold-outlined v-if="collapsed"
+                                class="trigger"
+                                @click="() => (collapsed = !collapsed)" />
+          <menu-fold-outlined v-else
                               class="trigger"
                               @click="() => (collapsed = !collapsed)" />
-        <menu-fold-outlined v-else
-                            class="trigger"
-                            @click="() => (collapsed = !collapsed)" />
-        <a-dropdown>
-          <a class="ant-dropdown-link"
-             @click="e => e.preventDefault()">
-            <a-avatar>
-              <template #icon>
-                <UserOutlined />
-              </template>
-            </a-avatar>
-            <DownOutlined />
-          </a>
-          <template #overlay>
-            <a-menu>
-              <a-menu-item>
-                <a @click="logout">Logout</a>
-              </a-menu-item>
-            </a-menu>
-          </template>
-        </a-dropdown>
-      </a-layout-header>
-      <BreadCrumb class="bread-crumb" />
-      <a-layout-content class="content">
-        <router-view />
-      </a-layout-content>
+          <a-dropdown>
+            <a class="ant-dropdown-link"
+               @click="e => e.preventDefault()">
+              <a-avatar>
+                <template #icon>
+                  <UserOutlined />
+                </template>
+              </a-avatar>
+              <DownOutlined />
+            </a>
+            <template #overlay>
+              <a-menu>
+                <a-menu-item>
+                  <a @click="logout">Logout</a>
+                </a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
+        </a-layout-header>
+        <BreadCrumb class="bread-crumb" />
+        <a-layout-content class="content">
+          <router-view />
+        </a-layout-content>
+      </a-layout>
     </a-layout>
-  </a-layout>
+  </a-config-provider>
 </template>
 
 <script lang="ts">
@@ -49,10 +51,17 @@ import {
   UserOutlined,
   DownOutlined,
 } from '@ant-design/icons-vue';
-import { Layout, Avatar, Dropdown, Menu } from 'ant-design-vue';
+import { ConfigProvider, Layout, Avatar, Dropdown, Menu } from 'ant-design-vue';
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+
+//  组件提供的语言包并不对日期格式化起作用，需要额外导入 moment 语言包
+import moment from 'moment';
+import 'moment/dist/locale/zh-cn';
 
 import Aside from './components/aside.vue';
 import BreadCrumb from './components/breadCrumb.vue';
+
+moment.locale('cn');
 
 export default defineComponent({
   name: 'App',
@@ -63,6 +72,7 @@ export default defineComponent({
     UserOutlined,
     DownOutlined,
 
+    [ConfigProvider.name]: ConfigProvider,
     [Layout.name]: Layout,
     [Layout.Sider.name]: Layout.Sider,
     [Layout.Header.name]: Layout.Header,
@@ -83,6 +93,7 @@ export default defineComponent({
 
     return {
       collapsed,
+      locale: zhCN,
     };
   },
 });

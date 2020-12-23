@@ -4,11 +4,17 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "Home",
+    meta: {
+      icon: 'UserOutlined',
+    },
     component: import("/@views/home.vue"),
   },
   {
     path: "/template",
     name: "Template",
+    meta: {
+      icon: 'MailOutlined',
+    },
     component: import("/@views/template.vue"),
     children: [
       {

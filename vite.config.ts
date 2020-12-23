@@ -1,36 +1,55 @@
 import { resolve } from "path";
+import { loadEnv } from 'vite';
+import type { UserConfig } from 'vite';
+import VitePluginHtml from 'vite-plugin-html';
+
+
+import { modifyVars } from './src/assets/styles/ant/lessModifyVars';
 
 function pathResolve(dir: string) {
   return resolve(__dirname, ".", dir);
 }
 
-module.exports = {
-  outDir: "dist",
-  port: 3000,
-  // 是否自动在浏览器打开
-  open: true,
-  // 是否开启 https
-  https: false,
-  // 服务端渲染
-  ssr: false,
-  // 导入别名
-  alias: {
-    // 键必须以斜线开始和结束
-    "/@/": pathResolve("src"),
-    "/@views/": pathResolve("src/views"),
-    "/@components/": pathResolve("src/components"),
-    "/@api/": pathResolve("src/serve/api"),
-  },
-  // 配置Dep优化行为
-  optimizeDeps: {
-    include: ["lodash"],
-  },
-  cssPreprocessOptions: {
-    less: {
-      modifyVars: {
-        "primary-color": "rgba(112, 128, 144, 1)",
-      },
-      javascriptEnabled: true,
-    }
+const root: string = process.cwd();
+
+export default (mode: 'development' | 'production'): UserConfig => {
+  const env = loadEnv(mode, root);
+  const { VITE_APP_TITLE, VITE_OUT_DIR, VITE_PORT, VITE_PUBLIC_PATH } = env;
+
+  return {
+    root,
+    outDir: VITE_OUT_DIR,
+    port: Number(VITE_PORT),
+    open: true,
+    https: false,
+    ssr: false,
+    /**
+     * Base public path when served in production.
+     * @default '/'
+     */
+    base: VITE_PUBLIC_PATH,
+    alias: {
+      "/@/": pathResolve("src"),
+      "/@views/": pathResolve("src/views"),
+      "/@components/": pathResolve("src/components"),
+      "/@api/": pathResolve("src/serve/api"),
+    },
+    optimizeDeps: {
+      include: ["lodash", 'ant-design-vue/es/locale/zh_CN', "@ant-design/icons-vue"],
+    },
+    cssPreprocessOptions: {
+      less: {
+        modifyVars,
+        javascriptEnabled: true,
+      }
+    },
+    plugins: [
+      VitePluginHtml({
+        minify: mode === 'production',
+        options: {
+          title: VITE_APP_TITLE
+        },
+      }),
+    ],
   }
-};
+}

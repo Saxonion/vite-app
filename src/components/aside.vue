@@ -7,7 +7,7 @@
               :key="menu.path">
       <template v-if="!menu.children">
         <a-menu-item :key="menu.path">
-          <UserOutlined />
+          <component :is="menu.meta?.icon" />
           <span>{{ menu.name }}</span>
         </a-menu-item>
       </template>
@@ -15,7 +15,8 @@
         <a-sub-menu :key="menu.path">
           <template #title>
             <span>
-              <MailOutlined /><span>{{ menu.name }}</span>
+              <component :is="menu.meta?.icon" />
+              <span>{{ menu.name }}</span>
             </span>
           </template>
           <a-menu-item v-for="subMenu in menu.children"
@@ -70,18 +71,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .layout-container {
   height: 100%;
-
-  .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 24px;
-    cursor: pointer;
-    transition: color 0.3s;
-
-    &:hover {
-      color: #1890ff;
-    }
-  }
 
   .logo {
     height: 32px;
