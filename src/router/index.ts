@@ -10,17 +10,17 @@ const routes: RouteRecordRaw[] = [
     component: import("/@views/home.vue"),
   },
   {
-    path: "/template",
-    name: "Template",
+    path: "/chart",
+    name: "Chart",
     meta: {
       icon: 'MailOutlined',
     },
-    component: import("/@views/template.vue"),
+    component: import("/@views/map.vue"),
     children: [
       {
-        path: "list",
-        name: "list",
-        component: import("/@views/template.vue"),
+        path: "map",
+        name: "map",
+        component: import("/@views/map.vue"),
       }
     ]
   },

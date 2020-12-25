@@ -35,7 +35,7 @@ export default (mode: 'development' | 'production'): UserConfig => {
       "/@api/": pathResolve("src/serve/api"),
     },
     optimizeDeps: {
-      include: ["lodash", 'ant-design-vue/es/locale/zh_CN', "@ant-design/icons-vue"],
+      include: ["lodash", 'ant-design-vue/es/locale/zh_CN', "@ant-design/icons-vue", "echarts", "echarts/map/js/china"],
     },
     cssPreprocessOptions: {
       less: {
