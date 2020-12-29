@@ -15,8 +15,13 @@ const routes: RouteRecordRaw[] = [
     meta: {
       icon: 'MailOutlined',
     },
-    component: import("/@views/map.vue"),
+    component: import("/@views/router.vue"),
     children: [
+      {
+        path: "bar",
+        name: "bar",
+        component: import("/@components/chart/bar.vue"),
+      },
       {
         path: "map",
         name: "map",
