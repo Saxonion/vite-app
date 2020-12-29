@@ -4,7 +4,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, unref, onMounted, onUnmounted } from 'vue';
+import {
+  defineComponent,
+  ref,
+  unref,
+  onMounted,
+  onUnmounted,
+  PropType,
+} from 'vue';
 import echarts from 'echarts';
 
 import 'echarts/map/js/china';
@@ -13,11 +20,11 @@ import { mapData } from './data';
 export default defineComponent({
   props: {
     width: {
-      type: String,
+      type: String as PropType<string>,
       default: '100%',
     },
     height: {
-      type: String,
+      type: String as PropType<string>,
       default: '100%',
     },
   },

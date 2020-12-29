@@ -58,8 +58,8 @@ import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import moment from 'moment';
 import 'moment/dist/locale/zh-cn';
 
-import Aside from './components/aside.vue';
-import BreadCrumb from './components/breadCrumb.vue';
+import Aside from './components/aside/index.vue';
+import BreadCrumb from './components/breadCrumb/index.vue';
 
 moment.locale('cn');
 

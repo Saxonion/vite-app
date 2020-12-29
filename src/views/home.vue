@@ -13,7 +13,7 @@ import { defineComponent, onMounted, ref, reactive, createVNode } from 'vue';
 import { Modal } from 'ant-design-vue';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 
-import Table from '../components/table.vue';
+import Table from '../components/table/index.vue';
 import mockTableData from '../mock/table';
 import { loginApi } from '/@/serve/api/index';
 

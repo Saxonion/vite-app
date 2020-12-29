@@ -20,8 +20,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch } from 'vue';
+import { defineComponent, reactive, watch, PropType } from 'vue';
 import { Table } from 'ant-design-vue';
+import { ColumnProps, ButtonProps } from './types';
 
 export default defineComponent({
   name: 'Table',
@@ -35,39 +36,31 @@ export default defineComponent({
       default: false,
     },
     columns: {
-      type: Array,
+      type: Array as PropType<ColumnProps[]>,
       default: () => [],
     },
     data: {
-      type: Array,
+      type: Array as PropType<any[]>,
       default: () => [],
     },
     page: {
-      type: Number,
+      type: Number as PropType<number>,
       default: 0,
     },
     pageSize: {
-      type: Number,
+      type: Number as PropType<number>,
       default: 20,
     },
     total: {
-      type: Number,
+      type: Number as PropType<number>,
       default: 0,
     },
     loading: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false,
     },
-    /**
-     *  !columns 对应的key为 action
-     * 表格对应的操作按钮, 为空数组不展示
-     * {text: String} [required] 文本名字
-     * {handleName: String} [required] 对应的方法名
-     * {show: Boolean || Function} 可选，默认true, 可按条件配置按钮展示与否
-     * {type: String} 可选，可选值[primary, warning]
-     */
     buttons: {
-      type: Array,
+      type: Array as PropType<ButtonProps[]>,
       default: () => [],
     },
   },
@@ -107,7 +100,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-@import (reference) '../assets/styles/base/index.less';
+@import (reference) '../../assets/styles/base/index.less';
 
 .opreation {
   margin-right: 10px;
